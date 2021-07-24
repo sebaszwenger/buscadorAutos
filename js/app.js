@@ -49,6 +49,11 @@ minimo.addEventListener('input', e => {
     filtrarAuto();
 });
 
+maximo.addEventListener('input', e => {
+    datosBusqueda.maximo = Number(e.target.value);
+    filtrarAuto();
+});
+
 puertas.addEventListener('input', e => {
     datosBusqueda.puertas = e.target.value;
     filtrarAuto();
@@ -63,8 +68,6 @@ color.addEventListener('input', e => {
     datosBusqueda.color = e.target.value;
     filtrarAuto();
 });
-console.log(datosBusqueda);
-
 
 //Funciones
 //Muestra resultados en el html
@@ -79,7 +82,6 @@ function mostrarAutos(autos) {
         resultado.appendChild(autoHTML);
     })
 }
-
 //Filtra por selector seleccionado
 function filtrarAuto() {
     const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo).filter(filtrarPuertas).filter(filtrarTransmision).filter(filtrarColor);
@@ -92,7 +94,6 @@ function filtrarAuto() {
         noResultado();
     }
 };
-
 //Filtra Marca
 function filtrarMarca(auto) {
     if(datosBusqueda.marca){
