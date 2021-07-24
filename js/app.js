@@ -49,11 +49,25 @@ minimo.addEventListener('input', e => {
     filtrarAuto();
 });
 
+puertas.addEventListener('input', e => {
+    datosBusqueda.puertas = e.target.value;
+    filtrarAuto();
+});
+
+transmision.addEventListener('input', e => {
+    datosBusqueda.transmision = e.target.value;
+    filtrarAuto();
+});
+
+color.addEventListener('input', e => {
+    datosBusqueda.color = e.target.value;
+    filtrarAuto();
+});
 console.log(datosBusqueda);
 
-//Funciones
 
-//Muestra los autos en el html
+//Funciones
+//Muestra resultados en el html
 function mostrarAutos(autos) {
     limpiarHTML();
 
@@ -66,9 +80,9 @@ function mostrarAutos(autos) {
     })
 }
 
-//Filtra la marca seleccionada
+//Filtra por selector seleccionado
 function filtrarAuto() {
-    const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo);
+    const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo).filter(filtrarPuertas).filter(filtrarTransmision).filter(filtrarColor);
 
     console.log(resultado);
 
@@ -85,36 +99,61 @@ function filtrarMarca(auto) {
        return auto.marca === datosBusqueda.marca;
     } 
     return auto;
-}
+};
 //Filtra año
 function filtrarYear(auto) {
     if(datosBusqueda.year){
        return auto.year === datosBusqueda.year;
     } 
     return auto;
-}
+};
 //Filtra precio minimo
 function filtrarMinimo(auto) {
     if(datosBusqueda.minimo){
        return auto.precio >= datosBusqueda.minimo;
     } 
     return auto;
-}
+};
 //Filtra precio maximo
 function filtrarMaximo(auto) {
     if(datosBusqueda.maximo){
        return auto.precio <= datosBusqueda.maximo;
     } 
     return auto;
-}
+};
+//Filtra por cantidad de puertas
+function filtrarPuertas(auto) {
+    if(datosBusqueda.puertas){
+       return auto.puertas == datosBusqueda.puertas;
+    } 
+    return auto;
+};
+//Filtra por transmision
+function filtrarTransmision(auto) {
+    if(datosBusqueda.transmision){
+       return auto.transmision === datosBusqueda.transmision;
+    } 
+    return auto;
+};
+//Filtra por color
+function filtrarColor(auto) {
+    if(datosBusqueda.color){
+       return auto.color === datosBusqueda.color;
+    } 
+    return auto;
+};
 //Limpia HTML
 function limpiarHTML() {
     while (resultado.firstChild) {
         resultado.removeChild(resultado.firstChild)
     }
-}
+};
 //Limpia HTML y pone mensaje de no resultados
 function noResultado() {
     limpiarHTML();
-    
-}
+
+    const mensaje0Resultados = document.createElement('p');
+    mensaje0Resultados.textContent = 'NO HAY RESULTADOS';
+    mensaje0Resultados.classList.add('alerta', 'error');
+    resultado.appendChild(mensaje0Resultados);
+};
